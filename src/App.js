@@ -8,7 +8,7 @@ function App() {
 
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("Chicken");
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -48,14 +48,17 @@ function App() {
           Search
         </button>
       </form>
-      {recipes.map(recipe => (
-        <Recipe
-          key={recipe.recipe.label}
-          image={recipe.recipe.image}
-          title={recipe.recipe.label}
-          calories={recipe.recipe.calories}
-        />
-      ))}
+      <div className="recipes">
+        {recipes.map(recipe => (
+          <Recipe
+            key={recipe.recipe.label}
+            image={recipe.recipe.image}
+            title={recipe.recipe.label}
+            calories={recipe.recipe.calories}
+            ingredients={recipe.recipe.ingredients}
+          />
+        ))}
+      </div>
     </div>
   );
 }

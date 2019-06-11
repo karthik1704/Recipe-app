@@ -1,11 +1,13 @@
 import React from "react";
-
-const Recipe = ({ title, image, calories }) => {
+import style from "./recipe.module.css";
+const Recipe = ({ title, image, calories, ingredients }) => {
   return (
-    <div>
+    <div className={style.recipe}>
       <h1>{title}</h1>
-      <p>{calories}</p>
-      <img src={image} alt={title} />
+      <img className={style.image} src={image} alt={title} />
+      <p className={style.calories}>
+        <b>Calories:{calories}</b>
+      </p>
     </div>
   );
 };
