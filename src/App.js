@@ -8,29 +8,36 @@ function App() {
 
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
+    const getRecipes = async () => {
+      const response = await fetch(
+        `https://api.edamam.com/search?q=${query}&app_id=${APP_Id}&app_key=${API_KEY}`
+      );
+
+      const data = await response.json();
+      setRecipes(data.hits);
+      console.log(data.hits);
+    };
+
     getRecipes();
-  }, []);
+  }, [query]);
 
-  const getRecipes = async () => {
-    const response = await fetch(
-      `https://api.edamam.com/search?q=chicken&app_id=${APP_Id}&app_key=${API_KEY}`
-    );
-
-    const data = await response.json();
-    setRecipes(data.hits);
-    console.log(data.hits);
-  };
   const updateSearch = e => {
     const search = e.target.value;
     setSearch(search);
-    console.log(search);
+  };
+
+  const getSearch = e => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch("");
   };
 
   return (
     <div className="App">
-      <form className="search-form">
+      <form onSubmit={getSearch} className="search-form">
         <input
           className="search-bar"
           onChange={updateSearch}
